@@ -20,7 +20,7 @@ public class LockScopeController {
     @GetMapping("wrong")
     public int wrong(@RequestParam(value = "count", defaultValue = "1000000") int count) {
         Data.reset();
-        //多线程循环一定次数调用Data类不同实例的wrong方法( counter++;)
+        //多线程循环一定次数调用Data类不同实例的wrong方法(其实就是counter++;)
         IntStream.rangeClosed(1, count).parallel().forEach(i -> new Data().wrong());
         return Data.getCounter();
     }

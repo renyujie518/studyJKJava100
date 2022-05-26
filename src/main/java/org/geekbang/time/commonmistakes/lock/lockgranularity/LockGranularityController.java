@@ -12,7 +12,8 @@ import java.util.stream.IntStream;
 /**
  * @description 02-2
  * 锁的粒度
- * 在业务代码中，有一个 ArrayList 因为会被多个线程操作而需要保护，又有一段比较 耗时的操作（代码中的 slow 方法）
+ * 在业务代码中，有一个 ArrayList 因为会被多个线程操作而需要保护
+ * 又有一段比较 耗时的操作（代码中的 slow 方法）
  */
 @RestController
 @RequestMapping("lockgranularity")
