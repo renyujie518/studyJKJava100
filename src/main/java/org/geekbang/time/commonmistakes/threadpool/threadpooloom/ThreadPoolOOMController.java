@@ -12,11 +12,19 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * @description 03-1
+ * 线程池
+ */
 @RestController
 @RequestMapping("threadpooloom")
 @Slf4j
 public class ThreadPoolOOMController {
 
+    /**
+     * @description 辅助监控
+     * 每秒输出一次线程 池的基本内部信息，包括线程数、活跃线程数、完成了多少任务，以及队列中还有多少积压 任务等信息
+     */
     private void printStats(ThreadPoolExecutor threadPool) {
         Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
             log.info("=========================");
@@ -29,6 +37,11 @@ public class ThreadPoolOOMController {
         }, 0, 1, TimeUnit.SECONDS);
     }
 
+    /**
+     * @description 来初始化一个单线程的 FixedThreadPool，
+     * 循环 1 亿次向线程池提 交任务，每个任务都会创建一个比较大的字符串然后休眠一小时（相当于每个认为1小时执行完成）
+     * 会导致任务队列积压
+     */
     @GetMapping("oom1")
     public void oom1() throws InterruptedException {
 
@@ -51,6 +64,11 @@ public class ThreadPoolOOMController {
         threadPool.awaitTermination(1, TimeUnit.HOURS);
     }
 
+    /**
+     * @description 来初始化一个单线程的 newCachedThreadPool，
+     * 循环 1 亿次向线程池提 交任务，每个任务都会创建一个比较大的字符串然后休眠一小时（相当于每个认为1小时执行完成）
+     * 会导致大量任务创建大量线程，消耗内存空间
+     */
     @GetMapping("oom2")
     public void oom2() throws InterruptedException {
 
@@ -70,17 +88,26 @@ public class ThreadPoolOOMController {
         threadPool.awaitTermination(1, TimeUnit.HOURS);
     }
 
+    /**
+     * @description 自定义线程池的正确用法
+     * 这个线程池具有 2 个核心线程、5 个最大线程、使用容量为 10 的 ArrayBlockingQueue 阻塞队列作为工作队列，
+     * 使用默认的 AbortPolicy 拒绝策略，也 就是任务添加到线程池失败会抛出 RejectedExecutionException。
+     * 此外，我们借助了 Jodd 类库的 ThreadFactoryBuilder 方法来构造一个线程工厂，实现线程池线程的自定义 命名。
+     */
     @GetMapping("right")
     public int right() throws InterruptedException {
         AtomicInteger atomicInteger = new AtomicInteger();
         ThreadPoolExecutor threadPool = new ThreadPoolExecutor(
-                2, 5,
-                5, TimeUnit.SECONDS,
+                2,
+                5,
+                5,
+                TimeUnit.SECONDS,
                 new ArrayBlockingQueue<>(10),
                 new ThreadFactoryBuilder().setNameFormat("demo-threadpool-%d").get(),
                 new ThreadPoolExecutor.AbortPolicy());
         //threadPool.allowCoreThreadTimeOut(true);
         printStats(threadPool);
+        //，每次间隔 1 秒向线程池提交任务，循环 20 次，每个任务需要 10 秒才能执行完成，
         IntStream.rangeClosed(1, 20).forEach(i -> {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -98,6 +125,7 @@ public class ThreadPoolOOMController {
                     log.info("{} finished", id);
                 });
             } catch (Exception ex) {
+                //提交出现异常的话，打印出错信息并为计数器减一
                 log.error("error submitting task {}", id, ex);
                 atomicInteger.decrementAndGet();
             }

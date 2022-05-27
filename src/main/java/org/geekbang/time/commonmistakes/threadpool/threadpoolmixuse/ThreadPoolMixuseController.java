@@ -19,7 +19,10 @@ import java.util.stream.IntStream;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.StandardOpenOption.CREATE;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
-
+/**
+ * @description 03-2
+ * ，使用独立的线程池避免复用线程池混用线程
+ */
 @RestController
 @RequestMapping("threadpoolmixuse")
 @Slf4j
@@ -68,18 +71,27 @@ public class ThreadPoolMixuseController {
         return asyncCalcThreadPool.submit(calcTask()).get();
     }
 
+    /**
+     * @description 模拟一个线程开启死循环逻辑，不断 向线程池提交任务，任务的逻辑是向一个文件中写入大量的数据：
+     */
     @PostConstruct
     public void init() {
         printStats(threadPool);
 
         new Thread(() -> {
+            //模拟需要写入的大量数据(一百万个a拼接起来)
             String payload = IntStream.rangeClosed(1, 1_000_000)
                     .mapToObj(__ -> "a")
                     .collect(Collectors.joining(""));
             while (true) {
                 threadPool.execute(() -> {
                     try {
-                        Files.write(Paths.get("demo.txt"), Collections.singletonList(LocalTime.now().toString() + ":" + payload), UTF_8, CREATE, TRUNCATE_EXISTING);
+                        //每次都是创建并写入相同的数据到相同的文件
+                        Files.write(Paths.get("demo.txt"),
+                                Collections.singletonList(LocalTime.now().toString() + ":" + payload),
+                                UTF_8,
+                                CREATE,
+                                TRUNCATE_EXISTING);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
