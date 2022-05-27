@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @description 05-1  读取超时问题
+ */
 @RestController
 @RequestMapping("clientreadtimeout")
 @Slf4j
@@ -24,6 +27,10 @@ public class ClientReadTimeoutController {
                 .asString();
     }
 
+    /**
+     * @description 定义一个 client 接口，内部通过 HttpClient 调用服务端接口 server，
+     * 客户端读取超时 2 秒，服务端接口执行耗时 5 秒
+     */
     @GetMapping("client")
     public String client() throws IOException {
         log.info("client1 called");

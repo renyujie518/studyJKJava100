@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
-
+/**
+ * @description 05-2
+ * 客户端接口，通过 Feign 调用服务端
+ */
 @RestController
 @RequestMapping("ribbonretryissueclient")
 @Slf4j
@@ -22,6 +25,7 @@ public class RibbonRetryIssueClientController {
     public String wrong() {
         log.info("client is called");
         try{
+            //通过Feign调用发送短信接口
             smsClient.sendSmsWrong("13600000000", UUID.randomUUID().toString());
         } catch (Exception ex) {
             log.error("send sms failed : {}", ex.getMessage());

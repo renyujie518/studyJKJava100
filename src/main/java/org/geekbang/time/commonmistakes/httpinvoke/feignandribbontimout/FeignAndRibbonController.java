@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @description 05-2
+ * 测试Feign的超时时间设置
+ */
 @RestController
 @RequestMapping("feignandribbon")
 @Slf4j
