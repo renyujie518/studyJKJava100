@@ -3,6 +3,9 @@ package org.geekbang.time.commonmistakes.equals.differentclassloaderequals;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * @description 08-5  评论区补充的类加载器导致的equals问题
+ */
 public class CommonMistakesApplication {
 
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
