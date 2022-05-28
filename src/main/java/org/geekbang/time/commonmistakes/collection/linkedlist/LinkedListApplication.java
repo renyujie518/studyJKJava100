@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
+/**
+ * @description 10-4 ArrayList 和 LinkedList
+ */
 public class LinkedListApplication {
 
     public static void main(String[] args) {

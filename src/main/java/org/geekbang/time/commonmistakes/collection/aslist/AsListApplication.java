@@ -6,13 +6,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
+/**
+ * @description 10-1  数组转list
+ */
 @Slf4j
 public class AsListApplication {
 
     public static void main(String[] args) {
 
-        right2();
+        wrong2();
+        //right2();
 
     }
 
@@ -36,8 +39,10 @@ public class AsListApplication {
     private static void wrong2() {
         String[] arr = {"1", "2", "3"};
         List list = Arrays.asList(arr);
+        //对原始数组的修改会影响到我们获得的那个 List
         arr[1] = "4";
         try {
+            //Arrays.asList 返回的 List 不支持增删操作
             list.add("5");
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -47,6 +52,7 @@ public class AsListApplication {
 
     private static void right2() {
         String[] arr = {"1", "2", "3"};
+        //重新 new 一个 ArrayList 初始化 Arrays.asList 返回的 List 避免和原始数组相互影响
         List list = new ArrayList(Arrays.asList(arr));
         arr[1] = "4";
         try {
