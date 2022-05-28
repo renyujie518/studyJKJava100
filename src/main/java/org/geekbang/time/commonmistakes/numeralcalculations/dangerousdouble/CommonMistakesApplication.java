@@ -4,7 +4,9 @@ package org.geekbang.time.commonmistakes.numeralcalculations.dangerousdouble;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
-
+/**
+ * @description 09-1  浮点数精确表达和运算的场景使用BigDecimal
+ */
 @Slf4j
 public class CommonMistakesApplication {
 
@@ -57,6 +59,9 @@ public class CommonMistakesApplication {
         System.out.println(new BigDecimal(123.3).divide(new BigDecimal(100)));
     }
 
+    /**
+     * @description 使用 BigDecimal 表示和计算浮点数，且务必使用字符串的构造方法来初始化 BigDecimal
+     */
     private static void right() {
         System.out.println(new BigDecimal("0.1").add(new BigDecimal("0.2")));
         System.out.println(new BigDecimal("1.0").subtract(new BigDecimal("0.8")));

@@ -5,7 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-
+/**
+ * @description 09-2 浮点数舍入和格式化的方式
+ */
 @SpringBootApplication
 public class CommonMistakesApplication {
 
@@ -37,10 +39,15 @@ public class CommonMistakesApplication {
         System.out.println(format.format(num2));
     }
 
+    /**
+     * @description 浮点数的字符串格式化也要通过 BigDecimal 进行。
+     */
     private static void right() {
         BigDecimal num1 = new BigDecimal("3.35");
+        //向下舍入取一位小数  3.35 -> 3,3
         BigDecimal num2 = num1.setScale(1, BigDecimal.ROUND_DOWN);
         System.out.println(num2);
+        //四舍五入取一位小数  3.35 -> 3.4
         BigDecimal num3 = num1.setScale(1, BigDecimal.ROUND_HALF_UP);
         System.out.println(num3);
     }
