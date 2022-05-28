@@ -5,7 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+/**
+ * @description 06-3  事务传播的配置问题
+ * 个用户注册的操作，会插入一个主用户到用户表，还会注册一个关联的 子用户。
+ * 我们希望将子用户注册的数据库操作作为一个独立事务来处理，即使失败也不会影 响主流程，即不影响主用户的注册
+ */
 @Service
 @Slf4j
 public class UserService {
@@ -39,6 +43,10 @@ public class UserService {
     }
 
 
+    /**
+     * @description 子逻辑subUserService已经在独立事务中运行
+     * 主方法没什么变化，同样需要捕获异常，防止异常漏出去导致主事务回滚，
+     */
     @Transactional
     public void createUserRight(UserEntity entity) {
         createMainUser(entity);

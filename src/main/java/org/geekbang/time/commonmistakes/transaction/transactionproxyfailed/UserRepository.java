@@ -5,7 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
+/**
+ * @description 06-1
+ * Spring JPA 做数据库访问
+ */
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     List<UserEntity> findByName(String name);

@@ -35,6 +35,11 @@ public class TransactionProxyFailedController {
         return userService.createUserRight(name);
     }
 
+    /**
+     * @description 最优雅的做法
+     * 注入 UserService Bean 调用 createUserPublic方法
+     *  @Transactional 增强的是publc方法
+     */
     @GetMapping("right2")
     public int right2(@RequestParam("name") String name) {
         try {
