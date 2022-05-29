@@ -37,16 +37,22 @@ public class POJONullController {
 
     @PostMapping("right")
     public UserEntity right(@RequestBody UserDto user) {
+        //对入参和ID 属性先判空
         if (user == null || user.getId() == null)
             throw new IllegalArgumentException("用户Id不能为空");
 
+        //根据 id 从数据库中查询出实体后进行判空，
         UserEntity userEntity = userEntityRepository.findById(user.getId())
                 .orElseThrow(() -> new IllegalArgumentException("用户不存在"));
 
+        //一步判断传的name和age是不是 null
+        //对于姓名，我们认为客户端传 null 是希望把姓名重置为空 在数据库中插入""即可
         if (user.getName() != null) {
             userEntity.setName(user.getName().orElse(""));
         }
+        //对于昵称，因为数据库中姓名不可能为 null，Entity中的@Column(nullable = false)保证
         userEntity.setNickname("guest" + userEntity.getName());
+        //对于年龄，认为如果客户端希望更新年龄就必须传一个有效的年龄，年龄不存在重 置操作
         if (user.getAge() != null) {
             userEntity.setAge(user.getAge().orElseThrow(() -> new IllegalArgumentException("年龄不能为空")));
         }

@@ -9,6 +9,10 @@ import java.util.Date;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+
+/**
+ * @description 11-2 POJO 中属性的 null
+ */
 @Data
 @Entity
 public class User {
