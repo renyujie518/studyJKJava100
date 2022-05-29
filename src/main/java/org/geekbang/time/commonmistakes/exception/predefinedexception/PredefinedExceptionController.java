@@ -4,7 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+/**
+ * @description 12-3 异常定义为静态变量的问题
+ */
 @RestController
 @Slf4j
 @RequestMapping("predefinedexception")

@@ -7,6 +7,9 @@ import org.springframework.web.method.HandlerMethod;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @description 12-1  统一异常处理
+ */
 @RestControllerAdvice
 @Slf4j
 public class RestControllerExceptionHandler {
