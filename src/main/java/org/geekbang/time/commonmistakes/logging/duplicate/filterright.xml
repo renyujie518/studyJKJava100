@@ -8,6 +8,9 @@
 		</layout>
 	</appender>
 
+<!--：配置 LevelFilter 的 onMatch 属性为 ACCEPT，表 示接收 INFO 级别的日志；
+配置 onMismatch 属性为 DENY，表示除了 INFO 级别都不记 录：
+	info.log 文件中只会有 INFO 级别的日志，不会出现日志重复的问题了。-->
 	<appender name="INFO_FILE" class="ch.qos.logback.core.FileAppender">
 		<File>${logDir}/${app.name}_info.log</File>
 		<filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -20,6 +23,8 @@
 			<charset>UTF-8</charset>
 		</encoder>
 	</appender>
+<!--	ThresholdFilter 设置为 WARN，可以记录 WARN 和 ERROR 级别的日 志。
+当日志级别大于等于配置的级别时返回 NEUTRAL，继 续调用过滤器链上的下一个过滤器；否则，返回 DENY 直接拒绝记录日志：-->
 	<appender name="ERROR_FILE" class="ch.qos.logback.core.FileAppender">
 		<File>${logDir}/${app.name}_error.log</File>
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">

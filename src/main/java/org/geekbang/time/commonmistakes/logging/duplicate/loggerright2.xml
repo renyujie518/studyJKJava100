@@ -11,6 +11,7 @@
             <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%-5level] [%logger{40}:%line] - %msg%n</pattern>
 		</layout>
 	</appender>
+<!--    additivity 属性为 false，这样就 不会继承的 Appender 了-->
     <logger name="org.geekbang.time.commonmistakes.logging" level="DEBUG" additivity="false">
         <appender-ref ref="FILE"/>
     </logger>

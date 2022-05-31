@@ -5,9 +5,16 @@
             <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%-5level] [%logger{40}:%line] - %msg%n</pattern>
 		</layout>
 	</appender>
+	<!--	定义异步日志记录 appender-->
 	<appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
 		<appender-ref ref="CONSOLE" />
         <includeCallerData>true</includeCallerData>
+<!--	1.queueSize代表异步日志阻塞队列的长度 默认大小是 256，即内存中最多保存 256 条日志 最好把 queueSize 设置大一点
+        2.discardingThreshold 是控制丢弃日志的阈值，主要是防止队列满后阻塞  ，它不是百分 比，而是日志条数
+        队列剩余量低于队列长度的 20%，就会丢弃 TRACE、DEBUG 和 INFO 级别的日 志
+        3.neverBlock 用于控制队列满的时候，加入的数据是否直接丢弃，不会阻塞等待，默认是 false
+        如果考虑绝对性能为先，那就设置 neverBlock 为 true，永不阻塞
+        -->
         <!--		<discardingThreshold>200</discardingThreshold>-->
         <!--		<queueSize>1000</queueSize>-->
         <!--		<neverBlock>true</neverBlock>-->

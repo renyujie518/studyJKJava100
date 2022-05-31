@@ -2,12 +2,14 @@
 <configuration>
 	<property name="logDir" value="./logs" />
 	<property name="app.name" value="common-mistakes" />
+<!--	把所有日志输出到控制台-->
 	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
 		<layout class="ch.qos.logback.classic.PatternLayout">
 			<pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%-5level] [%logger{40}:%line] - %msg%n</pattern>
 		</layout>
 	</appender>
-
+<!--用于记录文件日志，并定义了文件名、记录 日志的格式和编码等信息 LevelFilter 用来比较日志级别，然后进行相应处理
+过滤级别设置为 INFO，目的是希望 _info.log 文件中可以记录 INFO 级别的日志-->
 	<appender name="INFO_FILE" class="ch.qos.logback.core.FileAppender">
 		<File>${logDir}/${app.name}_info.log</File>
 		<filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -18,6 +20,8 @@
 			<charset>UTF-8</charset>
 		</encoder>
 	</appender>
+<!--	与上面的类似  并使用 ThresholdFilter 来过滤日 志，过滤级别设置为 WARN，
+目的是把 WARN 以上级别的日志记录到另一个 _error.log 文件中。-->
 	<appender name="ERROR_FILE" class="ch.qos.logback.core.FileAppender">
 		<File>${logDir}/${app.name}_error.log</File>
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">

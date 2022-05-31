@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
+/**
+ * @description 13-2  异步日志问题
+ */
 @Slf4j
 @RequestMapping("logging")
 @RestController
@@ -25,6 +27,9 @@ public class LoggingController {
         log.error("error");
     }
 
+    /**
+     * @description 默认产生1000条异步日志
+     */
     @GetMapping("manylog")
     public void manylog(@RequestParam(name = "count", defaultValue = "1000") int count) {
         long begin = System.currentTimeMillis();
@@ -32,6 +37,10 @@ public class LoggingController {
         System.out.println("took " + (System.currentTimeMillis() - begin) + " ms");
     }
 
+    /**
+     * @description 实现了记录指定次数的大日志，每条日志包含 1MB 字节的模拟数据，
+     * 最 后记录一条以 time 为标记的方法执行耗时日志
+     */
     @GetMapping("performance")
     public void performance(@RequestParam(name = "count", defaultValue = "1000") int count) {
         long begin = System.currentTimeMillis();
