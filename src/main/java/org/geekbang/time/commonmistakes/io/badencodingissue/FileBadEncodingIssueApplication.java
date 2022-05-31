@@ -11,7 +11,9 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
+/**
+ * @description 14-1  文件编码问题
+ */
 @Slf4j
 public class FileBadEncodingIssueApplication {
 
@@ -48,6 +50,9 @@ public class FileBadEncodingIssueApplication {
 
 
 
+    /**
+     * @description 直接使用 FileInputStream 拿文件流， 然后使用 InputStreamReader 读取字符流，并指定字符集为 GBK
+     */
     private static void right1() throws IOException {
 
         char[] chars = new char[10];
@@ -63,6 +68,9 @@ public class FileBadEncodingIssueApplication {
         log.info("result: {}", content);
     }
 
+    /**
+     * @description 使用 JDK1.7 推出的 Files 类的 readAllLines 方法，可 以很方便地用一行代码完成文件内容读取
+     */
     private static void right2() throws IOException {
         log.info("result: {}", Files.readAllLines(Paths.get("hello.txt"), Charset.forName("GBK")).stream().findFirst().orElse(""));
     }

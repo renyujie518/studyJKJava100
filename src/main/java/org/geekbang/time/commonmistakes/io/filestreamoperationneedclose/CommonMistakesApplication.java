@@ -16,7 +16,10 @@ import java.util.stream.Stream;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.StandardOpenOption.CREATE;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
-
+/**
+ * @description 14-2 需要消费某行数据时再读取
+ * 用 Files 类静态方法进行文件操作注意释放文件句柄
+ */
 @Slf4j
 public class CommonMistakesApplication {
 
@@ -82,6 +85,10 @@ public class CommonMistakesApplication {
         log.info("total : {}", longAdder.longValue());
     }
 
+    /**
+     * @description 使用 try 来包裹 Stream
+     * 确保流的 close 方法可以调用释放资源。
+     */
     private static void right() {
         //https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html
         LongAdder longAdder = new LongAdder();

@@ -14,7 +14,9 @@ import java.util.stream.IntStream;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.StandardOpenOption.*;
-
+/**
+ * @description 14-3 读写文件要考虑设置缓冲区
+ */
 @Slf4j
 public class CommonMistakesApplication {
 
@@ -50,6 +52,10 @@ public class CommonMistakesApplication {
                 , UTF_8, CREATE, TRUNCATE_EXISTING);
     }
 
+    /**
+     * @description 直接把原文件数据写入目标文件，相 当于文件复制：
+     * 每读取一个字节、每写入一个字节都进行一次 IO 操作，代价太大了
+     */
     private static void perByteOperation() throws IOException {
         Files.deleteIfExists(Paths.get("dest.txt"));
 
@@ -62,6 +68,9 @@ public class CommonMistakesApplication {
         }
     }
 
+    /**
+     * @description 使用 100 字节作为缓冲区，使用 FileInputStream 的 byte[]的重载来一次性读取 一定字节的数据
+     */
     private static void bufferOperationWith100Buffer() throws IOException {
         Files.deleteIfExists(Paths.get("dest.txt"));
 
@@ -75,6 +84,9 @@ public class CommonMistakesApplication {
         }
     }
 
+    /**
+     * @description 直接使用FileInputStream和FileOutputStream，再使用一个8KB的缓冲
+     */
     private static void largerBufferOperation() throws IOException {
         Files.deleteIfExists(Paths.get("dest.txt"));
 
@@ -87,6 +99,10 @@ public class CommonMistakesApplication {
             }
         }
     }
+
+    /**
+     * @description 额外使用一个 8KB 缓冲，使用 BufferedInputStream 和 BufferedOutputStream；
+     */
 
     private static void bufferedStreamBufferOperation() throws IOException {
         Files.deleteIfExists(Paths.get("dest.txt"));
@@ -101,6 +117,9 @@ public class CommonMistakesApplication {
         }
     }
 
+    /**
+     * @description 直接使用 BufferedInputStream 和 BufferedOutputStream；
+     */
     private static void bufferedStreamByteOperation() throws IOException {
         Files.deleteIfExists(Paths.get("dest.txt"));
 
@@ -114,6 +133,9 @@ public class CommonMistakesApplication {
     }
 
 
+    /**
+     * @description 如果希望有更高性能，可以使用 FileChannel 的 transfreTo 方法进行流的复制
+     */
     private static void fileChannelOperation() throws IOException {
         Files.deleteIfExists(Paths.get("dest.txt"));
 
