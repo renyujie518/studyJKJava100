@@ -10,7 +10,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static java.time.temporal.ChronoField.DAY_OF_MONTH;
 import static java.time.temporal.ChronoField.MONTH_OF_YEAR;
-
+/**
+ * @description 16-3 日期时间的计算
+ */
 public class CommonMistakesApplication {
 
     public static void main(String[] args) throws Exception {
@@ -21,6 +23,9 @@ public class CommonMistakesApplication {
         test();
     }
 
+    /**
+     * @description int 发生了溢出
+     */
     private static void wrong1() {
         System.out.println("wrong1");
         Date today = new Date();
@@ -47,6 +52,9 @@ public class CommonMistakesApplication {
         System.out.println(c.getTime());
     }
 
+    /**
+     * @description 用 Java 8 的日期时间类型，可以直接进行各种计算
+     */
     private static void better() {
         System.out.println("better");
         LocalDateTime localDateTime = LocalDateTime.now();
@@ -66,6 +74,7 @@ public class CommonMistakesApplication {
         LocalDate specifyDate = LocalDate.of(2019, 10, 1);
         System.out.println(Period.between(specifyDate, today).getDays());
         System.out.println(Period.between(specifyDate, today));
+        //算总的间隔天数 使用 ChronoUnit.DAYS.between
         System.out.println(ChronoUnit.DAYS.between(specifyDate, today));
 
 
@@ -81,7 +90,7 @@ public class CommonMistakesApplication {
         System.out.println("//本月最后一个工作日");
         System.out.println(LocalDate.now().with(TemporalAdjusters.lastInMonth(DayOfWeek.FRIDAY)));
 
-        System.out.println("//自定义逻辑");
+        System.out.println("//自定义逻辑 为当前时间增加 100 天以内的随机天数：");
         System.out.println(LocalDate.now().with(temporal -> temporal.plus(ThreadLocalRandom.current().nextInt(100), ChronoUnit.DAYS)));
 
         System.out.println("//查询是否是今天要举办生日");
