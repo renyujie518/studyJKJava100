@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.LongStream;
-
+/**
+ * @description 17 课后问题
+ */
 @RestController
 @RequestMapping("groovyoom")
 @Slf4j
@@ -51,6 +53,10 @@ public class GroovyOOMController {
         return shell.evaluate(script);
     }
 
+    /**
+     * @description 不要每次都evaluate脚本而是把脚本转变为一个方法parse后缓存起来这个Script（用map缓存），
+     * 以后直接invokeMethod来使用
+     */
     private Object rightGroovy(String script, String method, Object... args) {
         Script scriptObject;
         if (SCRIPT_CACHE.containsKey(script)) {

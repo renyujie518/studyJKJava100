@@ -17,6 +17,9 @@ public class ImproperMaxHeaderSizeController {
     @Autowired
     private Environment env;
 
+    /**
+     * @description 配置 JVM 参数启用详细的 GC 日志，方便观察垃圾收集 器的行为
+     */
     //wrk -t10 -c100 -d 60s http://localhost:45678/impropermaxheadersize/oom
     //-Xmx1g -Xms1g -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=.
     //https://tomcat.apache.org/tomcat-8.0-doc/config/http.html
