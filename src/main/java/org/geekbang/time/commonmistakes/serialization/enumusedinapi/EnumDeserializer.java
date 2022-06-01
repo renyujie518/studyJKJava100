@@ -12,7 +12,9 @@ import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Optional;
-
+/**
+ * @description 15-4 枚举作为 API 接口参数或返回值（建议不要）
+ */
 class EnumDeserializer extends JsonDeserializer<Enum> implements
         ContextualDeserializer {
 

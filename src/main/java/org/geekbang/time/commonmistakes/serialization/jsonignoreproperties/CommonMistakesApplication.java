@@ -15,6 +15,10 @@ public class CommonMistakesApplication {
         SpringApplication.run(CommonMistakesApplication.class, args);
     }
 
+    /**
+     * @description 错误做法
+     * 因为反序列化的时候，原始数据多了一个 version 属性
+     */
 //    @Bean
 //    public ObjectMapper objectMapper() {
 //        ObjectMapper objectMapper = new ObjectMapper();
@@ -22,6 +26,10 @@ public class CommonMistakesApplication {
 //        return objectMapper;
 //    }
 
+
+    /**
+     * @description 直接定义 Jackson2ObjectMapperBuilderCustomizer Bean 来启用新特性：
+     */
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer customizer() {
         return builder -> builder.featuresToEnable(SerializationFeature.WRITE_ENUMS_USING_INDEX);

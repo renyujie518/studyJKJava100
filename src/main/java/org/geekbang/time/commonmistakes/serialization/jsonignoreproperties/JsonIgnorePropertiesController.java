@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+/**
+ * @description 15-2 Jackson JSON 反序列化对额外字段的处理
+ */
 @RestController
 @RequestMapping("jsonignoreproperties")
 @Slf4j
