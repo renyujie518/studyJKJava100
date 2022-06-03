@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
+//值越大优先级反而越低
 @Order(10)
 @Slf4j
 public class TestAspectWithOrder10 {

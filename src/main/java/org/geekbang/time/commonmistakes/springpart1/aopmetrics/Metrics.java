@@ -4,7 +4,9 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
+/**
+ * @description  定义一个自定义注解 Metrics，打上了该注解的方法可以实现各种监控功能
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})
 public @interface Metrics {

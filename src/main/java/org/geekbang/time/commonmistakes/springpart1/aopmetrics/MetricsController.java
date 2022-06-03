@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
+//自动进行监控
 @RestController
 @RequestMapping("metricstest")
 @Metrics(logParameters = false, logReturn = false)

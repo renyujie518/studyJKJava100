@@ -8,6 +8,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+/**
+ * @description
+ * @Scope 注解，设置 了 PROTOTYPE 的生命周期，也就是多例：
+ * proxyMode   让 Service 以代理方式注入
+ */
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class SayBye extends SayService {
 
