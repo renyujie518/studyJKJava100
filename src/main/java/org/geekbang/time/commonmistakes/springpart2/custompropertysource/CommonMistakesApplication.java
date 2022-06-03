@@ -18,6 +18,12 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.stream.StreamSupport;
 
+/**
+ * @description ，我们可以定义 %%MYSQL.URL%%、%%MYSQL.USERNAME%% 和 %%MYSQL.PASSWORD%%，
+ * 分别代表数据库连接字符串、用户名和密码。
+ * 在配置数 据源时，我们只要设置其值为占位符，框架就可以自动根据当前应用程序名 application.name，
+ * 统一把占位符替换为真实的数据库信息。这样，生产的数据库信息 就不需要放在配置文件中了，会更安全。
+ */
 @SpringBootApplication
 @Slf4j
 public class CommonMistakesApplication {
