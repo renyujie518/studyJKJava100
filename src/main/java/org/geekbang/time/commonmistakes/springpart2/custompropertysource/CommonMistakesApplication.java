@@ -35,6 +35,7 @@ public class CommonMistakesApplication {
     private JdbcTemplate jdbcTemplate;
 
     public static void main(String[] args) {
+        //工具类 加载配置项
         Utils.loadPropertySource(CommonMistakesApplication.class, "db.properties");
         new SpringApplicationBuilder()
                 .sources(CommonMistakesApplication.class)
@@ -66,9 +67,11 @@ public class CommonMistakesApplication {
                 .filter(ps -> ps instanceof EnumerablePropertySource)
                 .map(ps -> ((EnumerablePropertySource) ps).getPropertyNames())
                 .flatMap(Arrays::stream)
-                .forEach(propKey -> {
+                .forEach(propKey -> {//propKey是：前面的值
+                    //先获取：后面的value值
                     String propValue = env.getProperty(propKey);
                     property.entrySet().forEach(item -> {
+                        //如果在系统配置中有这三个配置项  就当前应用程序名 application.name，统一把占位符替换为真实的数据库信息加载到Properties中
                         if (propValue.contains(item.getKey())) {
                             modifiedProps.put(propKey, propValue.replaceAll(item.getKey(), item.getValue()));
                         }
@@ -77,10 +80,14 @@ public class CommonMistakesApplication {
 
         if (!modifiedProps.isEmpty()) {
             log.info("modifiedProps: {}", modifiedProps);
+            //优先执行
             env.getPropertySources().addFirst(new PropertiesPropertySource("mysql", modifiedProps));
         }
     }
 
+    /**
+     * @description 之前提到过的检查DB是否在运行
+     */
     @Bean
     public CommandLineRunner checkDb() {
         return args -> {

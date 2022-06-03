@@ -4,6 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Properties;
 
+/**
+ * @description 工具类 加载配置项
+ */
 @Slf4j
 public class Utils {
 
