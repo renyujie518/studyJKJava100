@@ -2,6 +2,9 @@ package org.geekbang.time.commonmistakes.apidesign.apiresponse;
 
 import lombok.Getter;
 
+/**
+ * @description 自定义异常
+ */
 public class APIException extends RuntimeException {
     @Getter
     private int errorCode;

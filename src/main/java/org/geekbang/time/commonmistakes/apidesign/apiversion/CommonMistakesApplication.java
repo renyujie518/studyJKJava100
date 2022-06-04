@@ -12,6 +12,9 @@ public class CommonMistakesApplication implements WebMvcRegistrations {
         SpringApplication.run(CommonMistakesApplication.class, args);
     }
 
+    /**
+     * @description 要通过实现 WebMvcRegistrations 接口，来生效自定 义的 APIVersionHandlerMapping：
+     */
     @Override
     public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
         return new APIVersionHandlerMapping();
