@@ -9,6 +9,9 @@ import java.math.BigDecimal;
 @Service(value = "VipUserCart")
 public class VipUserCart extends NormalUserCart {
 
+    /**
+     * @description VIP 用户的购物车 VipUserCart，直接继承了 NormalUserCart，只需要修改多买优惠策 略
+     */
     @Override
     protected void processCouponPrice(long userId, Item item) {
         if (item.getQuantity() > 2) {

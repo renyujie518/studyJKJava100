@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-
+/**
+ * @description 21-2 利用注解 + 反射消除重复代码
+ */
 @Slf4j
 @RestController
 @RequestMapping("reflection")

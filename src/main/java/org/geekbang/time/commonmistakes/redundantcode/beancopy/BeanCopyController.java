@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * @description 21-3 属性拷贝工具消除重复代码
+ */
 @Slf4j
 @RestController
 @RequestMapping("beancopy")
@@ -73,6 +76,7 @@ public class BeanCopyController {
     public ComplicatedOrderDO right() {
         ComplicatedOrderDTO orderDTO = new ComplicatedOrderDTO();
         ComplicatedOrderDO orderDO = new ComplicatedOrderDO();
+        //把DTO 复制到DO中  需要忽略id字段
         BeanUtils.copyProperties(orderDTO, orderDO, "id");
         return orderDO;
     }

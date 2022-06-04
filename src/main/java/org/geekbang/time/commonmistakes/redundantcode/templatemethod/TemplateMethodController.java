@@ -52,6 +52,10 @@ public class TemplateMethodController {
         return null;
     }
 
+    /**
+     * @description  工厂模式
+     * 通过 Bean 的名称直接获取到 AbstractCart，调用其 process 方法即可实现通用。
+     */
     @GetMapping("right")
     public Cart right(@RequestParam("userId") int userId) {
         String userCategory = Db.getUserCategory(userId);
