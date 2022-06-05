@@ -11,7 +11,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.handler.annotation.support.DefaultMessageHandlerMethodFactory;
 import org.springframework.messaging.handler.annotation.support.MessageHandlerMethodFactory;
-
+/**
+ * @description  25-课后  死信交 换器 DLX处理死信问题
+ */
 @Configuration
 @Slf4j
 public class RabbitConfiguration implements RabbitListenerConfigurer {
@@ -20,6 +22,9 @@ public class RabbitConfiguration implements RabbitListenerConfigurer {
         rabbitListenerEndpointRegistrar.setMessageHandlerMethodFactory(messageHandlerMethodFactory());
     }
 
+    /**
+     * @description 消息用Jackson 转换
+     */
     @Bean
     public MessageHandlerMethodFactory messageHandlerMethodFactory() {
         DefaultMessageHandlerMethodFactory messageHandlerMethodFactory = new DefaultMessageHandlerMethodFactory();

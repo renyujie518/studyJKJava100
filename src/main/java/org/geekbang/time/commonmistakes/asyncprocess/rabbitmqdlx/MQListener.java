@@ -43,6 +43,9 @@ public class MQListener {
         }
     }
 
+    /**
+     * @description 用到了消息中的headers  返回重试次数
+     */
     private long getRetryCount(Map<String, Object> headers) {
         long retryCount = 0;
         if (null != headers) {

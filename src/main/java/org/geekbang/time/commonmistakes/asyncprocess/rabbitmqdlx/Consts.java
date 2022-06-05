@@ -2,6 +2,7 @@ package org.geekbang.time.commonmistakes.asyncprocess.rabbitmqdlx;
 
 public class Consts {
     public static final Integer RETRY_INTERNAL = 3000;
+    //设置的重试次数
     public static final Integer RETRY_COUNT = 2;
 
 

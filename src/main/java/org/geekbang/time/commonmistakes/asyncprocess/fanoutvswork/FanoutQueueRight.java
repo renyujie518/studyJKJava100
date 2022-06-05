@@ -38,11 +38,15 @@ public class FanoutQueueRight {
         Queue promotionQueue = new Queue(PROMOTION_QUEUE);
 
         FanoutExchange exchange = new FanoutExchange(EXCHANGE);
+        /** 队列进行拆分，会员和营销两组服务分别使用一条独立队列绑定到 同一个广播交换器即可：**/
         return new Declarables(memberQueue, promotionQueue, exchange,
                 BindingBuilder.bind(memberQueue).to(exchange),
                 BindingBuilder.bind(promotionQueue).to(exchange));
     }
 
+    /**
+     * @description 消费的时候消费自己的队列
+     */
     @RabbitListener(queues = MEMBER_QUEUE)
     public void memberService1(String userName) {
         log.info("memberService1: welcome message sent to new user {}", userName);

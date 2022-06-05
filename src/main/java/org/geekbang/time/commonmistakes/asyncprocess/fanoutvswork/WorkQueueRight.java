@@ -30,6 +30,7 @@ public class WorkQueueRight {
         rabbitTemplate.convertAndSend(EXCHANGE, "test", UUID.randomUUID().toString());
     }
 
+    /** 1. 使用普通队列**/
     @Bean
     public Queue queue() {
         return new Queue(QUEUE);
