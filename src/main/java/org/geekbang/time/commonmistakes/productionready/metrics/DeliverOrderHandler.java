@@ -14,7 +14,9 @@ import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
-//配送服务消息处理程序
+/**
+ * @description 监听消息进行配送操作
+ */
 @RestController
 @Slf4j
 @RequestMapping("deliver")
@@ -45,6 +47,7 @@ public class DeliverOrderHandler {
         try {
             if (!deliverStatus)
                 throw new RuntimeException("deliver outofservice");
+            //模拟业务逻辑处理
             TimeUnit.MILLISECONDS.sleep(500);
             deliverCounter.incrementAndGet();
             //配送成功指标deliverOrder.success，timer类型

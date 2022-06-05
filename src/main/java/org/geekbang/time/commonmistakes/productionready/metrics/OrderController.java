@@ -47,15 +47,17 @@ public class OrderController {
             //模拟无效用户的情况，ID<10的为无效用户
             if (userId < 10)
                 throw new RuntimeException("invalid user");
+            /** 下单操 作前先判断参数，如果参数正确调用另一个服务查询商户状态，如果商户在营业的话继续下单 **/
             //查询商户服务
             Boolean merchantStatus = restTemplate.getForObject("http://localhost:45678/order/getMerchantStatus?merchantId=" + merchantId, Boolean.class);
             if (merchantStatus == null || !merchantStatus)
                 throw new RuntimeException("closed merchant");
+            //开始下单
             Order order = new Order();
             order.setId(createOrderCounter.incrementAndGet()); //gauge指标可以得到自动更新
             order.setUserId(userId);
             order.setMerchantId(merchantId);
-            //发送MQ消息
+            //下单成功后发一条消息到 RabbitMQ 进行异步配送流程
             rabbitTemplate.convertAndSend(Consts.EXCHANGE, Consts.ROUTING_KEY, order);
             //记录一次createOrder.success指标，表示下单成功，同时提供耗时
             Metrics.timer("createOrder.success").record(Duration.between(begin, Instant.now()));

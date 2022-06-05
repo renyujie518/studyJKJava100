@@ -7,7 +7,10 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadPoolExecutor;
-
+/**
+ * @description 24-2
+ * 通过 Actuator 的 InfoContributor 功能 来展现线程池的信息（主要就是map的方式）
+ */
 @Component
 public class ThreadPoolInfoContributor implements InfoContributor {
     private static Map threadPoolInfo(ThreadPoolExecutor threadPool) {
