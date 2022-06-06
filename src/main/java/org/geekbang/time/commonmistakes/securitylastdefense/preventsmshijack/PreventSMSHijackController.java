@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @description 28-1 付费的三方服务（如短信）防刷问题
+ */
 @Slf4j
 @RequestMapping("preventsmshijack")
 @RestController
@@ -26,6 +29,7 @@ public class PreventSMSHijackController {
         sendSMSCaptcha("13600000000");
     }
 
+    //模拟三方付费服务
     private void sendSMSCaptcha(String mobile) {
         //调用短信通道
     }

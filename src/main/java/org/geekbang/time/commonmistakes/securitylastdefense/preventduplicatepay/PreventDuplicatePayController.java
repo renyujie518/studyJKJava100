@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+/**
+ * @description 28-3  防重幂等问题
+ */
 @Slf4j
 @RequestMapping("preventduplicatepay")
 @RestController
@@ -20,6 +23,9 @@ public class PreventDuplicatePayController {
     }
 
 
+    /**
+     * @description 正确：使用相同的业务订单号
+     */
     @GetMapping("right")
     public void right(@RequestParam("orderId") String orderId) {
         PayChannel.pay(orderId, "123", new BigDecimal("100"));

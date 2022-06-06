@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.stream.IntStream;
-
+/**
+ * @description 28-2  虚拟资产问题
+ */
 @Slf4j
 @RequestMapping("prventcouponfarming")
 @RestController
@@ -22,9 +24,13 @@ public class PreventCouponFarmingController {
         return couponCenter.getTotalSentCoupon();
     }
 
+    /**
+     * @description 先申请批次，然后再通过批次发放优惠券
+     */
     @GetMapping("right")
     public int right() {
         CouponCenter couponCenter = new CouponCenter();
+        //先申请批次 再sendCoupon发放
         CouponBatch couponBatch = couponCenter.generateCouponBatch();
         IntStream.rangeClosed(1, 10000).forEach(i -> {
             Coupon coupon = couponCenter.generateCouponRight(1L, couponBatch);
