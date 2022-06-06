@@ -17,7 +17,10 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
-
+/**
+ * @description 查询最近 60 天的数据，按照 1 小时的时间粒度聚合，
+ * 统 计 value 列的最大值、最小值和平均值，并将统计结果绘制成曲线图
+ */
 @RestController
 @Slf4j
 @RequestMapping("influxdbvsmysql")

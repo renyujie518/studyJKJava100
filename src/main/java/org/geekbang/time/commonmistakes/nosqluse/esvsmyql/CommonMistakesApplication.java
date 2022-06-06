@@ -23,6 +23,10 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.IntStream;
 
+/**
+ * @description 会从一个 csv 文件中加载 4000 条新闻数据，
+ * 然后复制 100 份，拼成 40 万条数据，分别写入 MySQL 和 ES：
+ */
 @SpringBootApplication
 @Slf4j
 @EnableElasticsearchRepositories(includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = NewsESRepository.class))

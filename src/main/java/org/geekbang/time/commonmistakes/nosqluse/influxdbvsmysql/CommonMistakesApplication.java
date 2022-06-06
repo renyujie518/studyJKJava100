@@ -24,7 +24,9 @@ import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
-
+/**
+ * @description 26-2 对比时序数据库与mysql
+ */
 @SpringBootApplication
 @Slf4j
 public class CommonMistakesApplication {

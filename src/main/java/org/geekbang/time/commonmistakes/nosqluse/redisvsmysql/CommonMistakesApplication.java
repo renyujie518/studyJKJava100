@@ -20,7 +20,7 @@ import java.util.stream.IntStream;
 @Slf4j
 public class CommonMistakesApplication {
 
-    //模拟多少数据保存到Redis和MySQL
+    //模拟10万数据保存到Redis和MySQL
     public static final int ROWS = 100000;
     public static final String PAYLOAD = IntStream.rangeClosed(1, 100).mapToObj(__ -> "a").collect(Collectors.joining(""));
     @Autowired

@@ -48,6 +48,9 @@ public class PerformanceController {
         log.info("took {} ms result {}", System.currentTimeMillis() - begin, result);
     }
 
+    /**
+     * @description 测试频繁更新问题
+     */
     @GetMapping("mysql2")
     public void mysql2(@RequestParam(value = "id", defaultValue = "400000") long id) {
         long begin = System.currentTimeMillis();
@@ -59,6 +62,9 @@ public class PerformanceController {
 
     }
 
+    /**
+     * @description 在 ES 中保存一个类似计数器的值，要实现不断更新，其执行效率会非常低。
+     */
     @GetMapping("es2")
     public void es(@RequestParam(value = "id", defaultValue = "400000") long id) {
         long begin = System.currentTimeMillis();

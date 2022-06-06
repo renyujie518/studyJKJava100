@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.ThreadLocalRandom;
-
+/**
+ * @description 26-1  比较redis和mysql的读取性能
+ */
 @RestController
 @Slf4j
 @RequestMapping("redisvsmysql")
@@ -23,9 +25,13 @@ public class PerformanceController {
 
     @GetMapping("redis")
     public void redis() {
+        //使用随机的Key来查询Value，结果应该等于PAYLOAD
         Assert.assertTrue(stringRedisTemplate.opsForValue().get("item" + (ThreadLocalRandom.current().nextInt(CommonMistakesApplication.ROWS) + 1)).equals(CommonMistakesApplication.PAYLOAD));
     }
 
+    /**
+     * @description 验证redis不擅长搜索key(使用keys命令搜索)
+     */
     @GetMapping("redis2")
     public void redis2() {
         Assert.assertTrue(stringRedisTemplate.keys("item71*").size() == 1111);
@@ -33,6 +39,7 @@ public class PerformanceController {
 
     @GetMapping("mysql")
     public void mysql() {
+        //根据随机name来查data，name字段有索引，结果应该等于PAYLOAD
         Assert.assertTrue(jdbcTemplate.queryForObject("SELECT data FROM `r` WHERE name=?", new Object[]{("item" + (ThreadLocalRandom.current().nextInt(CommonMistakesApplication.ROWS) + 1))}, String.class)
                 .equals(CommonMistakesApplication.PAYLOAD));
     }

@@ -11,7 +11,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import javax.persistence.*;
 
 @Entity
-@Document(indexName = "news", replicas = 0) //ES
+@Document(indexName = "news", replicas = 0) //@Document注解定义了这是一个ES的索引
 @Table(name = "news", indexes = {@Index(columnList = "cateid")}) //MySQL
 @Data
 @AllArgsConstructor
