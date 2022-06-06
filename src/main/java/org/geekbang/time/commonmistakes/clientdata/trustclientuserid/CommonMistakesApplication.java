@@ -14,6 +14,10 @@ public class CommonMistakesApplication implements WebMvcConfigurer {
         SpringApplication.run(CommonMistakesApplication.class, args);
     }
 
+    /**
+     * @description 实现 WebMvcConfigurer 接口的 addArgumentResolvers 方法，
+     * 来增加这 个自定义的处理器 LoginRequiredArgumentResolver
+     */
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(new LoginRequiredArgumentResolver());

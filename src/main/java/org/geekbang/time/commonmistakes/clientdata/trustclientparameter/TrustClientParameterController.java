@@ -13,6 +13,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @description 27-2 客户端提交的参数需要校验
+ */
 @Slf4j
 @RequestMapping("trustclientparameter")
 @Controller
@@ -28,6 +31,14 @@ public class TrustClientParameterController {
         allCountries.put(4, new Country(4, "Japan"));
     }
 
+    /**
+     * @description 设定 注册只支持中国、美国和英国三个国家
+     * 因此从数据库中筛选了 id<4 的国家返回给页面进行填充
+     *
+     * ModelMap对象主要用于传递控制方法处理数据到结果页面，也就是说我们把结果页面上需要的数据放到ModelMap对象中即可，
+     * 他的作用类似于request对象的setAttribute方法的作用:用来在一个请求过程中传递处理的数据。
+     * ModelMap或者Model通过addAttribute方法向页面传递参数
+     */
     @GetMapping("/")
     public String index(ModelMap modelMap) {
         List<Country> countries = new ArrayList<>();
@@ -42,6 +53,9 @@ public class TrustClientParameterController {
         return allCountries.get(countryId).getName();
     }
 
+    /**
+     * @description 在使用客户端传过来的参数之前，对参数进行有效性校验：
+     */
     @PostMapping("/right")
     @ResponseBody
     public String right(@RequestParam("countryId") int countryId) {
@@ -50,6 +64,10 @@ public class TrustClientParameterController {
         return allCountries.get(countryId).getName();
     }
 
+    /**
+     * @description 使用 Spring Validation 采用注解的方式进行参数校验，更优雅
+     * 就是接收>=1  <=3的参数
+     */
     @PostMapping("/better")
     @ResponseBody
     public String better(
