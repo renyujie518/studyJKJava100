@@ -13,6 +13,9 @@ public class CommonMistakesApplication {
         SpringApplication.run(CommonMistakesApplication.class, args);
     }
 
+    /**
+     * @description 注册自定义的Jackson序列器
+     */
     @Bean
     public Module xssModule() {
         SimpleModule module = new SimpleModule();

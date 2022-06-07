@@ -6,7 +6,11 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import org.springframework.web.util.HtmlUtils;
 
 import java.io.IOException;
-
+/**
+ * @description 自定义一个 Jackson 列化器，来实现序列化时的字符串的 HTML 转义
+ * 目的是如果因为之前的漏洞，数据库中已经保存了一些 JavaScript 代 码，那么读取的时候同样可能出问题。
+ * 因此，我们还要实现数据读取的时候也转义
+ */
 public class XssJsonSerializer extends JsonSerializer<String> {
     @Override
     public Class<String> handledType() {

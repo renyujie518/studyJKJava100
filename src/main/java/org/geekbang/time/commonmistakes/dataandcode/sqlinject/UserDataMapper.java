@@ -14,6 +14,9 @@ public interface UserDataMapper {
 
     List<UserData> findByNamesWrong(@Param("names") String names);
 
+    /**
+     * @description 在 MyBatis 中，“# {}”是参数化的方式，对于 LIKE 操作可以使用 CONCAT 函数来拼接 % 符号
+     */
     @Select("SELECT id,name FROM `userdata` WHERE name LIKE CONCAT('%',#{name},'%')")
     List<UserData> findByNameRight(@Param("name") String name);
 

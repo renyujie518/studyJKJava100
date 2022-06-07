@@ -4,6 +4,8 @@
     <select id="findByNamesWrong" resultType="org.geekbang.time.commonmistakes.dataandcode.sqlinject.UserData">
         SELECT id,name FROM `userdata` WHERE name in (${names})
     </select>
+
+<!--  使用其 foreach 标签来拼接出 IN 中的内 容，并确保 IN 中的每一项都是使用“#{}”来注入参数    -->
     <select id="findByNamesRight" resultType="org.geekbang.time.commonmistakes.dataandcode.sqlinject.UserData">
         SELECT id,name FROM `userdata` WHERE name in
         <foreach collection="names" item="item" open="(" separator="," close=")">

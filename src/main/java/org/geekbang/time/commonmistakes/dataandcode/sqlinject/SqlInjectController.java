@@ -20,6 +20,9 @@ public class SqlInjectController {
     @Autowired
     private UserDataMapper userDataMapper;
 
+    /**
+     * @description 实现一个 ExceptionHandler 来屏蔽异常，防止报错注入
+     */
     @ExceptionHandler
     public void handle(HttpServletRequest req, HandlerMethod method, Exception ex) {
         log.warn(String.format("访问 %s -> %s 出现异常！", req.getRequestURI(), method.toString()), ex);
@@ -37,6 +40,10 @@ public class SqlInjectController {
         jdbcTemplate.execute("INSERT INTO `userdata` (name,password) VALUES ('test1','haha1'),('test2','haha2')");
     }
 
+
+    /**
+     * @description 采用拼接SQL的方式把姓名参数拼到LIKE子句中  但不返回任何数据的 Http Post 接口
+     */
     @PostMapping("jdbcwrong")
     public void jdbcwrong(@RequestParam("name") String name) {
         //curl -X POST http://localhost:45678/sqlinject/jdbcwrong\?name\=test
@@ -46,6 +53,9 @@ public class SqlInjectController {
         log.info("{}", jdbcTemplate.queryForList("SELECT id,name FROM userdata WHERE name LIKE '%" + name + "%'"));
     }
 
+    /**
+     * @description 在 SQL 语句中使用“?”作为参数占位符，然后提供参数值。
+     */
     @PostMapping("jdbcright")
     public void jdbcright(@RequestParam("name") String name) {
         //curl -X POST http://localhost:45678/sqlinject/jdbcright\?name\=test
