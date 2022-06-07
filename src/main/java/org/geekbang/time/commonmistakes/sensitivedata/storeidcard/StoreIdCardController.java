@@ -14,7 +14,9 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.spec.AlgorithmParameterSpec;
-
+/**
+ * @description 30-2 姓名与身份证问题（对称加密）
+ */
 @RestController
 @Slf4j
 @RequestMapping("storeidcard")
@@ -28,6 +30,9 @@ public class StoreIdCardController {
     @Autowired
     private CipherService cipherService;
 
+    /**
+     * @description 帮助方法 获取加密秘钥
+     */
     private static SecretKeySpec setKey(String secret) {
         return new SecretKeySpec(secret.getBytes(), "AES");
     }
@@ -46,10 +51,10 @@ public class StoreIdCardController {
         cipher.init(Cipher.ENCRYPT_MODE, setKey(KEY), parameterSpec);
         System.out.println("一次：" + Hex.encodeHexString(cipher.doFinal("abcdefghijklmnop".getBytes())));
         System.out.println("两次：" + Hex.encodeHexString(cipher.doFinal("abcdefghijklmnopabcdefghijklmnop".getBytes())));
+        /** 下面测试是否可以通过操纵密文来操纵明文 **/
         byte[] sender = "1000000000012345".getBytes();
         byte[] receiver = "1000000000034567".getBytes();
         byte[] money = "0000000010000000".getBytes();
-
         //加密发送方账号
         System.out.println("发送方账号：" + Hex.encodeHexString(cipher.doFinal(sender)));
         //加密接收方账号
@@ -80,6 +85,9 @@ public class StoreIdCardController {
         return userRepository.save(userData);
     }
 
+    /**
+     * @description 输入一个查询密码作为 AAD 相当于用户授权
+     */
     @GetMapping("right")
     public UserData right(@RequestParam(value = "name", defaultValue = "朱晔") String name,
                           @RequestParam(value = "idcard", defaultValue = "300000000000001234") String idCard,
@@ -101,6 +109,9 @@ public class StoreIdCardController {
         return userRepository.save(userData);
     }
 
+    /**
+     * @description 解密入口
+     */
     @GetMapping("read")
     public void read(@RequestParam(value = "aad", required = false) String aad) throws Exception {
         UserData userData = userRepository.findById(1L).get();
@@ -110,6 +121,9 @@ public class StoreIdCardController {
 
     }
 
+    /**
+     * @description ECB 模式虽然简单，但是不安全，不推荐使用。
+     */
     @GetMapping("ecb")
     public void ecb() throws Exception {
         Cipher cipher = Cipher.getInstance("AES/ECB/NoPadding");

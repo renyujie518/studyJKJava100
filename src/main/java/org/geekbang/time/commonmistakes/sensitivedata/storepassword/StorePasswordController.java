@@ -12,12 +12,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
-
+/**
+ * @description 30-1 密码问题
+ */
 @RestController
 @Slf4j
 @RequestMapping("storepassword")
 public class StorePasswordController {
 
+    /**
+     * @description 推荐使用 BCryptPasswordEncoder，也就是 BCrypt来进行密码哈希
+     */
     private static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     @Autowired
     private UserRepository userRepository;
@@ -27,6 +32,7 @@ public class StorePasswordController {
         UserData userData = new UserData();
         userData.setId(1L);
         userData.setName(name);
+        //密码字段使用MD5哈希后保存
         userData.setPassword(DigestUtils.md5Hex(password));
         return userRepository.save(userData);
     }
@@ -36,6 +42,7 @@ public class StorePasswordController {
         UserData userData = new UserData();
         userData.setId(1L);
         userData.setName(name);
+        //不能在代码中写死盐，且盐需要有一定的长度
         userData.setPassword(DigestUtils.md5Hex("salt" + password));
         return userRepository.save(userData);
     }
@@ -45,6 +52,7 @@ public class StorePasswordController {
         UserData userData = new UserData();
         userData.setId(1L);
         userData.setName(name);
+        //不建议将一部分用户数据作为盐
         userData.setPassword(DigestUtils.md5Hex(name + password));
         return userRepository.save(userData);
     }
@@ -54,6 +62,7 @@ public class StorePasswordController {
         UserData userData = new UserData();
         userData.setId(1L);
         userData.setName(name);
+        //多次md5也容易破解
         userData.setPassword(DigestUtils.md5Hex(DigestUtils.md5Hex(password)));
         return userRepository.save(userData);
     }
@@ -63,6 +72,7 @@ public class StorePasswordController {
         UserData userData = new UserData();
         userData.setId(1L);
         userData.setName(name);
+        //使用全球唯一的、和用户无关的、足够长的随机值作为盐。比如，可以使用 UUID 作为盐，把盐一起保存到数据库中
         userData.setSalt(UUID.randomUUID().toString());
         userData.setPassword(DigestUtils.md5Hex(userData.getSalt() + password));
         return userRepository.save(userData);
@@ -80,6 +90,7 @@ public class StorePasswordController {
         return userData;
     }
 
+    //代价因子越大耗时越长
     @GetMapping("performance")
     public void performance() {
         StopWatch stopWatch = new StopWatch();

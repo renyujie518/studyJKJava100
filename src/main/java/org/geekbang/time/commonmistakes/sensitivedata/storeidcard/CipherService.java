@@ -11,7 +11,9 @@ import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.SecureRandom;
 import java.util.Base64;
-
+/**
+ * @description 加密服务使用 GCM 模式（ Galois/Counter Mode）的 AES-256 对称加密算 法
+ */
 @Service
 public class CipherService {
     //密钥长度
