@@ -10,7 +10,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.summingInt;
-
+/**
+ * @description 实现一个 MostPopularCollector，来得到 List 中出现次数最多的元素
+ */
 public class MostPopularCollector<T> implements Collector<T, Map<T, Integer>, Optional<T>> {
     @Override
     public Supplier<Map<T, Integer>> supplier() {
