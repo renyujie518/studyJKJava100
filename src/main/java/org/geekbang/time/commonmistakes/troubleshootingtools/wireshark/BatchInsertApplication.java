@@ -33,19 +33,23 @@ public class BatchInsertApplication implements CommandLineRunner {
                 ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
     }
 
+    /**
+     * @description 使用 JdbcTemplate 的 batchUpdate 方法，批量插入 10000 条记录到 testuser 表
+     */
     @Override
     public void run(String... args) {
-
         long begin = System.currentTimeMillis();
         String sql = "INSERT INTO `testuser` (`name`) VALUES (?)";
         jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement preparedStatement, int i) throws SQLException {
+                //第一个参数(索引从1开始)，也就是name列赋值 赋值分别为 usera1 usera2 ...
                 preparedStatement.setString(1, "usera" + i);
             }
 
             @Override
             public int getBatchSize() {
+                //批次大小为10000
                 return 10000;
             }
         });
